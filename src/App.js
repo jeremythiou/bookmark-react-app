@@ -40,8 +40,6 @@ function App() {
   const getDelete = event => {
     var deleteBookmark = event.target.getAttribute("deletebookmark") === "true";
 
-    console.log(deleteBookmark);
-
     if (!deleteBookmark) {
       event.target.parentNode.style.display = "none";
       return;
