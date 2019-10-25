@@ -30,7 +30,21 @@ function App() {
     setId(id + 1);
   };
 
+  const getValidationDelete = event => {
+    var validationDiv = event.target.parentNode.getElementsByClassName(
+      "js-delete-validation"
+    );
+    validationDiv[0].style.display = "flex";
+  };
+
   const getDelete = event => {
+    var deleteBookmark = event.target.getAttribute("deletebookmark") === "true";
+
+    if (!deleteBookmark) {
+      event.target.parentNode.style.display = "none";
+      return;
+    }
+
     var array = [...bookmarks];
     var bookmaridInt = parseInt(event.target.getAttribute("bookmarkid"));
     var index = array.findIndex(bookmark => bookmark.id === bookmaridInt);
@@ -54,13 +68,31 @@ function App() {
               link={bookmark.url}
               description={bookmark.description}
             />
-            <button
-              onClick={getDelete}
-              bookmarkid={bookmark.id}
-              className="bookmarks-btn"
-            >
+            <button onClick={getValidationDelete} className="bookmarks-btn">
               Delete
             </button>
+
+            <div className="bookmarks-delete-validation js-delete-validation">
+              <p>
+                You are trying to delete the bookmark: {bookmark.title}. Are you
+                sure?
+              </p>
+              <button
+                onClick={getDelete}
+                bookmarkid={bookmark.id}
+                deletebookmark="true"
+                className="bookmarks-btn"
+              >
+                Yes, delete the bookmark!
+              </button>
+              <button
+                onClick={getDelete}
+                deletebookmark="false"
+                className="bookmarks-btn"
+              >
+                No, it is a mistake!
+              </button>
+            </div>
           </div>
         );
       })}
