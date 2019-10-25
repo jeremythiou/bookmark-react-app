@@ -1,13 +1,14 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
 const Bookmark = ({ title, link, description }) => {
   return (
     <div>
       <a href={link} target="_blank" rel="noopener noreferrer">
-        <div className="bookmark">
-          <p className="bookmark-title">{title}</p>
-          <p className="bookmark-description">{description}</p>
-          <p className="bookmark-link">{link}</p>
+        <div className="d-flex align-items-center justify-content-around">
+          <div className="pl-2">{title}</div>
+          <div className="pl-2">{description}</div>
+          <div className="pl-2">{link}</div>
         </div>
       </a>
     </div>

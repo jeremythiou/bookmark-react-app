@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import "./App.css";
 import Bookmark from "./Bookmark";
@@ -34,6 +35,7 @@ function App() {
     var validationDiv = event.target.parentNode.getElementsByClassName(
       "js-delete-validation"
     );
+
     validationDiv[0].style.display = "flex";
   };
 
@@ -56,71 +58,91 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Bookmarks List</h1>
-
-      {bookmarks.map(bookmark => {
-        return (
-          <div>
-            <Bookmark
-              key={bookmark.id}
-              title={bookmark.title}
-              link={bookmark.url}
-              description={bookmark.description}
-            />
-            <button onClick={getValidationDelete} className="bookmarks-btn">
-              Delete
-            </button>
-
-            <div className="bookmarks-delete-validation js-delete-validation">
-              <p>
-                You are trying to delete the bookmark: {bookmark.title}. Are you
-                sure?
-              </p>
-              <button
-                onClick={getDelete}
-                bookmarkid={bookmark.id}
-                deletebookmark="true"
-                className="bookmarks-btn"
-              >
-                Yes, delete the bookmark!
-              </button>
-              <button
-                onClick={getDelete}
-                deletebookmark="false"
-                className="bookmarks-btn"
-              >
-                No, it is a mistake!
-              </button>
+    <div className="App container">
+      <h1>Bookmarks List with React</h1>
+      <div className="row">
+        <div className="col-4">
+          <form onSubmit={getSubmit} className="bookmarks-form">
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                className="form-control"
+                id="title"
+                type="text"
+                value={title}
+                onChange={updateTitle}
+                required
+              />
             </div>
-          </div>
-        );
-      })}
 
-      <hr />
-      <form onSubmit={getSubmit} className="bookmarks-form">
-        <input
-          className="bookmarks-form-input"
-          type="text"
-          value={title}
-          onChange={updateTitle}
-          required
-        />
-        <input
-          className="bookmarks-form-input"
-          type="url"
-          value={link}
-          onChange={updateLink}
-          required
-        />
-        <input
-          className="bookmarks-form-input"
-          type="text"
-          value={description}
-          onChange={updateDescription}
-        />
-        <button className="bookmarks-btn">Add new bookmark</button>
-      </form>
+            <div className="form-group">
+              <label htmlFor="link">Link</label>
+              <input
+                className="form-control"
+                id="link"
+                type="url"
+                value={link}
+                onChange={updateLink}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <textarea
+                className="form-control"
+                id="description"
+                rows="3"
+                value={description}
+                onChange={updateDescription}
+              ></textarea>
+            </div>
+            <button className="btn btn-primary">Add new bookmark</button>
+          </form>
+        </div>
+        <div className="col-8">
+          {bookmarks.map(bookmark => {
+            return (
+              <div className="row shadow-sm p-3 mb-5 bg-white rounded">
+                <Bookmark
+                  key={bookmark.id}
+                  title={bookmark.title}
+                  link={bookmark.url}
+                  description={bookmark.description}
+                />
+                <button
+                  onClick={getValidationDelete}
+                  className="col-2 btn btn-danger"
+                >
+                  Delete
+                </button>
+
+                <div className="bookmarks-delete-validation js-delete-validation">
+                  <h5>
+                    You are trying to delete the bookmark: {bookmark.title}. Are
+                    you sure?
+                  </h5>
+                  <button
+                    onClick={getDelete}
+                    bookmarkid={bookmark.id}
+                    deletebookmark="true"
+                    className="btn btn-danger"
+                  >
+                    Yes, delete the bookmark!
+                  </button>
+                  <button
+                    onClick={getDelete}
+                    deletebookmark="false"
+                    className="btn btn-secondary"
+                  >
+                    No, it was a mistake!
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
