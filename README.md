@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Bookmark React App
+
+In this application, the user can add bookmarks to a list. He also can delete the bookmark he wants.
 
 ## Available Scripts
 
